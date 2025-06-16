@@ -7,7 +7,7 @@ import AgentLoadingPanel from "@/components/agent-loading-panel"
 import ReadmeDisplay from "@/components/readme-display"
 import ParticleBackground from "@/components/particle-background"
 
-export default function RepoWhisperer() {
+export default function CodDoc() {
   const [currentView, setCurrentView] = useState<"landing" | "loading" | "readme">("landing")
   const [repoUrl, setRepoUrl] = useState("")
   const [generatedReadme, setGeneratedReadme] = useState("")

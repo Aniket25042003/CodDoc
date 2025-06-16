@@ -39,7 +39,7 @@ export default function AgentLoadingPanel({ repoUrl, logs = [] }: AgentLoadingPa
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">RepoWhisperer</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">CodDoc</h2>
           <p className="text-gray-400 text-lg">Processing: {repoUrl.split("/").slice(-2).join("/")}</p>
         </motion.div>
 
