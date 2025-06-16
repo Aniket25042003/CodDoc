@@ -37,7 +37,7 @@ yarn install
 cp .env.example .env.local
 ```
 Fill in your environment variables in `.env.local`:
-- `NEXT_PUBLIC_API_URL`: Your API endpoint
+- `BACKEND_URL`: YOUR BACKEND URL
 - `GEMINI_API_KEY`: Your Gemini AI API key
 
 4. Start the development server:
