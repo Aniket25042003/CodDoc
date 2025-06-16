@@ -3,6 +3,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.prompts import ChatPromptTemplate
 import os
 from ..tools.gemini_client import GeminiClient
+import time
 
 class BaseAgent:
     def __init__(self):
@@ -17,7 +18,7 @@ class BaseAgent:
         
         try:
             self.llm = ChatGoogleGenerativeAI(
-                model="gemini-2.0-flash-001",
+                model="gemini-2.5-pro-preview-06-05",
                 temperature=0.7,
                 google_api_key=api_key,
                 # Add these parameters to fix serialization issues
@@ -32,6 +33,9 @@ class BaseAgent:
         
     def invoke_llm(self, prompt: str) -> str:
         """Invoke the LLM with fallback handling."""
+        # Add a small delay to help with rate limiting
+        time.sleep(1)  # 1 second delay between requests
+        
         if self.use_langchain:
             try:
                 response = self.llm.invoke(prompt)
@@ -40,7 +44,7 @@ class BaseAgent:
                 print(f"LangChain invocation failed: {e}, falling back to direct API")
                 self.use_langchain = False
         
-        # Use direct Gemini client
+        # Use direct Gemini client (which has retry logic)
         return self.gemini_client.generate_content(prompt)
         
     def create_prompt(self, template: str) -> ChatPromptTemplate:

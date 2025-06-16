@@ -29,8 +29,8 @@ class CodeUnderstandingAgent(BaseAgent):
     def select_important_files(self, repo_path: str, repo_structure: Dict[str, Any]) -> List[str]:
         """Select important files for code analysis."""
         try:
-            # Use the file selector tool
-            important_files = file_selector(repo_path, repo_structure)
+            # Use the file selector tool - only pass repo_path
+            important_files = file_selector(repo_path)
             return important_files
         except Exception as e:
             print(f"Error selecting important files: {e}")

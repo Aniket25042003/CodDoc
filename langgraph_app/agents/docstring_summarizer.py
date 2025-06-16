@@ -71,6 +71,53 @@ class DocstringSummarizerAgent(BaseAgent):
             
         return docstrings
         
+    def summarize_docstrings(self, docstrings: List[Dict[str, str]]) -> Dict[str, Any]:
+        """Summarize the extracted docstrings using LLM."""
+        if not docstrings:
+            return {
+                "summaries": [],
+                "parameters": [],
+                "notes": [],
+                "examples": []
+            }
+        
+        try:
+            # Format docstrings for the prompt
+            docstring_text = "\n\n".join([
+                f"Function/Class: {doc['name']}\nType: {doc['type']}\nDocstring: {doc['docstring']}"
+                for doc in docstrings
+            ])
+            
+            # Generate summary using LLM
+            prompt = self.prompt_template.format(docstrings=docstring_text)
+            response = self.invoke_llm(prompt)
+            
+            # Try to parse as JSON, fallback to structured response if parsing fails
+            try:
+                import json
+                summary = json.loads(response)
+            except:
+                # If JSON parsing fails, create a structured response
+                summary = {
+                    "summaries": [f"Summary of {doc['name']}: {doc['docstring'][:100]}..." for doc in docstrings],
+                    "parameters": ["Parameters extracted from docstrings"],
+                    "notes": ["Notes found in documentation"],
+                    "examples": ["Usage examples from docstrings"],
+                    "raw_analysis": response
+                }
+            
+            return summary
+            
+        except Exception as e:
+            print(f"Error summarizing docstrings: {str(e)}")
+            return {
+                "summaries": [f"Error processing {doc['name']}" for doc in docstrings],
+                "parameters": [],
+                "notes": [],
+                "examples": [],
+                "error": str(e)
+            }
+        
     def process(self, state: Dict[str, Any]) -> Dict[str, Any]:
         """Extract and summarize docstrings from important files."""
         # Call parent process to initialize state
