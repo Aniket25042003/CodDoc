@@ -75,14 +75,19 @@ export default function MarkdownEditor({ initialMarkdown, onMarkdownChange }: Ma
     // Horizontal rules
     html = html.replace(/^---$/gm, '<hr class="border-gray-700 my-6" />')
     
-    // Lists - improved handling
+    // Lists - simplified approach without complex grouping
+    // Convert unordered lists directly
     html = html.replace(/^(\s*)[-*+] (.+)$/gm, (match, indent, content) => {
-      const indentLevel = indent.length / 2
-      return `<li class="text-gray-300 mb-1 ml-${indentLevel * 4}">• ${content}</li>`
+      const indentLevel = Math.floor(indent.length / 2)
+      const marginClass = indentLevel > 0 ? `ml-${indentLevel * 4}` : ''
+      return `<div class="flex items-start ${marginClass} my-1"><span class="text-gray-400 mr-2">•</span><span class="text-gray-300">${content}</span></div>`
     })
+    
+    // Convert ordered lists directly
     html = html.replace(/^(\s*)(\d+)\. (.+)$/gm, (match, indent, num, content) => {
-      const indentLevel = indent.length / 2
-      return `<li class="text-gray-300 mb-1 ml-${indentLevel * 4}">${num}. ${content}</li>`
+      const indentLevel = Math.floor(indent.length / 2)
+      const marginClass = indentLevel > 0 ? `ml-${indentLevel * 4}` : ''
+      return `<div class="flex items-start ${marginClass} my-1"><span class="text-gray-400 mr-2">${num}.</span><span class="text-gray-300">${content}</span></div>`
     })
     
     // Blockquotes

@@ -6,9 +6,9 @@ import os
 import traceback
 import logging
 from dotenv import load_dotenv
-from langgraph_app.langgraph_runner import run_langgraph
 from langgraph_app.tools.git_utils import clone_repo
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph_app.agents.repo_analyzer import RepoAnalyzerAgent
+from langgraph_app.agents.readme_writer import ReadmeWriterAgent
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -31,9 +31,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Initialize memory saver
-memory_saver = MemorySaver()
 
 class RepoRequest(BaseModel):
     repo_url: str
@@ -59,30 +56,45 @@ async def generate_readme(request: RepoRequest):
         repo_path = clone_repo(request.repo_url)
         logger.info(f"Repository cloned to: {repo_path}")
         
-        # Initialize state
+        # Initialize simplified state
         state = {
             "repo_url": request.repo_url,
             "repo_path": repo_path,
             "repo_structure": {},
             "dependencies": {},
-            "important_files": [],
-            "code_summaries": {},
-            "doc_summaries": {},
+            "sample_files": {},
+            "repo_analysis": {},
             "readme": "",
             "log": [],
             "decisions": []
         }
         
-        logger.info("Starting LangGraph workflow...")
-        # Run the LangGraph workflow
-        result = await run_langgraph(state)
-        logger.info("LangGraph workflow completed successfully")
+        logger.info("Starting simplified workflow...")
+        
+        # Step 1: Analyze repository
+        logger.info("Running repo analyzer...")
+        repo_analyzer = RepoAnalyzerAgent()
+        state = repo_analyzer.process(state)
+        logger.info("Repo analysis completed")
+        
+        # Step 2: Generate README
+        logger.info("Running readme writer...")
+        readme_writer = ReadmeWriterAgent()
+        state = readme_writer.process(state)
+        logger.info("README generation completed")
+        
+        # Clean up
+        try:
+            from langgraph_app.tools.git_utils import cleanup_repo
+            cleanup_repo(repo_path)
+        except:
+            pass
         
         return ReadmeResponse(
-            readme=result.get("readme", ""),
-            log=result.get("log", []),
-            decisions=result.get("decisions", []),
-            thread_id=result.get("thread_id", "")
+            readme=state.get("readme", ""),
+            log=state.get("log", []),
+            decisions=state.get("decisions", []),
+            thread_id="simplified_workflow"
         )
         
     except Exception as e:
@@ -90,32 +102,12 @@ async def generate_readme(request: RepoRequest):
         logger.error(f"Traceback: {traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
-@app.get("/readme/{thread_id}", response_model=ReadmeResponse)
-async def get_readme(thread_id: str):
-    """Retrieve a previously generated README using its thread ID."""
-    try:
-        # Get the state from memory
-        state = memory_saver.get(thread_id)
-        if not state:
-            raise HTTPException(status_code=404, detail="README not found")
-            
-        return ReadmeResponse(
-            readme=state["readme"],
-            log=state["log"],
-            decisions=state["decisions"],
-            thread_id=thread_id
-        )
-        
-    except Exception as e:
-        logger.error(f"Error in get_readme: {str(e)}")
-        logger.error(f"Traceback: {traceback.format_exc()}")
-        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
-
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
-    return {"status": "healthy", "api_key_configured": bool(os.getenv("GEMINI_API_KEY"))}
+    return {"status": "healthy"}
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000))) 
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port) 

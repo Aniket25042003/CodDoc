@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 
 // Backend API URL - change this to your deployed FastAPI URL in production
-const BACKEND_URL = process.env.BACKEND_URL || "https://coddoc.onrender.com"
+const BACKEND_URL = "http://localhost:8000" || "https://coddoc.onrender.com"
 
 export async function POST(request: NextRequest) {
   try {

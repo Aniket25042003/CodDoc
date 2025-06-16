@@ -18,7 +18,7 @@ class BaseAgent:
         
         try:
             self.llm = ChatGoogleGenerativeAI(
-                model="gemini-2.5-pro-preview-06-05",
+                model="gemini-2.0-flash-lite",
                 temperature=0.7,
                 google_api_key=api_key,
                 # Add these parameters to fix serialization issues
@@ -33,8 +33,7 @@ class BaseAgent:
         
     def invoke_llm(self, prompt: str) -> str:
         """Invoke the LLM with fallback handling."""
-        # Add a small delay to help with rate limiting
-        time.sleep(1)  # 1 second delay between requests
+        # Removed delay to speed up processing
         
         if self.use_langchain:
             try:

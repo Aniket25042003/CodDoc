@@ -263,12 +263,12 @@ export default function LandingPage({ onGenerateReadme }: LandingPageProps) {
 
                              {/* Visual */}
                <div className="flex-1 flex justify-center relative z-10">
-                 <motion.div
-                   whileHover={{ scale: 1.05, rotate: 5 }}
-                   transition={{ duration: 0.3 }}
-                   className="w-64 h-64 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-sm border border-gray-700/50 rounded-3xl flex items-center justify-center relative overflow-hidden group"
-                 >
-                   <div className="absolute inset-0 bg-gradient-to-r from-[#04a777]/10 to-[#00d4aa]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <motion.div
+                  whileHover={{ scale: 1.05, rotate: 5 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-64 h-64 bg-gradient-to-br from-gray-900/80 to-gray-800/80 backdrop-blur-sm border border-gray-700/50 rounded-3xl flex items-center justify-center relative overflow-hidden group"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#04a777]/10 to-[#00d4aa]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                    {index === 0 && (
                      <svg className="w-full h-full p-4" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                        <rect x="20" y="20" width="160" height="40" rx="8" fill="#1F2937" stroke="#4B5563" strokeWidth="2"/>
@@ -311,8 +311,8 @@ export default function LandingPage({ onGenerateReadme }: LandingPageProps) {
                        <text x="160" y="155" textAnchor="middle" fill="#04a777" fontSize="12">Export</text>
                      </svg>
                    )}
-                 </motion.div>
-               </div>
+                </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>

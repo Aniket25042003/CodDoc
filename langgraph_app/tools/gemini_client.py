@@ -13,9 +13,9 @@ class GeminiClient:
             raise ValueError("GEMINI_API_KEY environment variable is required")
         
         self.base_url = "https://generativelanguage.googleapis.com/v1beta"
-        self.model = "gemini-2.5-pro-preview-06-05"
-        self.max_retries = 3
-        self.base_delay = 2  # Base delay in seconds
+        self.model = "gemini-2.0-flash-lite"
+        self.max_retries = 2  # Reduced retries for faster failure
+        self.base_delay = 1  # Reduced delay
     
     def generate_content(self, prompt: str, temperature: float = 0.7) -> str:
         """Generate content using Gemini API directly with retry logic."""
@@ -37,7 +37,7 @@ class GeminiClient:
                 "temperature": temperature,
                 "topK": 1,
                 "topP": 1,
-                "maxOutputTokens": 2048,
+                "maxOutputTokens": 1024,  # Reduced for faster response
             }
         }
         
@@ -45,7 +45,7 @@ class GeminiClient:
         
         for attempt in range(self.max_retries):
             try:
-                response = requests.post(url, headers=headers, json=data, params=params)
+                response = requests.post(url, headers=headers, json=data, params=params, timeout=30)  # 30 second timeout
                 
                 # Handle rate limiting
                 if response.status_code == 429:
