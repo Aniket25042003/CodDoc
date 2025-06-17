@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: 'CodDoc',
     images: [
       {
-        url: '/CodDoc.png',
+        url: 'https://cod-doc.vercel.app/CodDoc.png',
         width: 1200,
         height: 630,
         alt: 'CodDoc Logo',
@@ -33,7 +33,11 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'CodDoc - AI-Powered README Generator and Editor',
     description: 'Generate and edit professional README files for your GitHub repositories using AI.',
-    images: ['/CodDoc.png'],
+    images: ['https://cod-doc.vercel.app/CodDoc.png'],
+  },
+  other: {
+    'article:author': 'Aniket Patel',
+    'article:published_time': '2025-06-17',
   },
 }
 
