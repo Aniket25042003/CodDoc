@@ -3,7 +3,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: 'CodDoc - AI-Powered README Generator and Editor',
-  description: 'Generate and Edit professional README files for your GitHub repositories using AI',
+  description: 'CodDoc is an AI-powered tool that instantly generates and edits professional, high-quality README files for your GitHub repositories. Just paste your repo URL and get a beautifully structured README with options to edit and customize it.',
   generator: 'Next.js',
   icons: {
     icon: '/CodDoc.png',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'CodDoc - AI-Powered README Generator and Editor',
-    description: 'Generate and edit professional README files for your GitHub repositories using AI.',
+    description: 'CodDoc is an AI-powered tool that instantly generates and edits professional, high-quality README files for your GitHub repositories. Just paste your repo URL and get a beautifully structured README with options to edit and customize it.',
     url: 'https://cod-doc.vercel.app',
     siteName: 'CodDoc',
     images: [
@@ -48,12 +48,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          name="description"
-          content="CodDoc is an AI-powered tool that instantly generates and edits professional, high-quality README files for your GitHub repositories. Just paste your repo URL and get a beautifully structured README with options to edit and customize it."
-        />
-      </head>
       <body>{children}</body>
     </html>
   )
