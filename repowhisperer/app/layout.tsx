@@ -48,6 +48,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="description"
+          content="CodDoc is an AI-powered tool that instantly generates and edits professional, high-quality README files for your GitHub repositories. Just paste your repo URL and get a beautifully structured README with options to edit and customize it."
+        />
+      </head>
       <body>{children}</body>
     </html>
   )
