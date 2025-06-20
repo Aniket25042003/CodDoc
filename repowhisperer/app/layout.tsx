@@ -7,9 +7,9 @@ export const metadata: Metadata = {
   description: 'CodDoc is an AI-powered tool that instantly generates and edits professional, high-quality README files for your GitHub repositories. Just paste your repo URL and get a beautifully structured README with options to edit and customize it.',
   generator: 'Next.js',
   icons: {
-    icon: '/CodDoc.png',
-    apple: '/CodDoc.png',
-    shortcut: '/CodDoc.png',
+    icon: '/favicon.ico',
+    apple: '/favicon.ico',
+    shortcut: '/favicon.ico',
   },
   verification: {
     google: 'QHzkptsQCDQ8B5TqtXBlX8ou_RyFcHKDY-wcNrsFwQA',
@@ -49,7 +49,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head />
       <body>
         <GoogleAnalytics measurementId="G-LQT7GDE13T" />
         {children}
