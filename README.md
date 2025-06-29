@@ -1,6 +1,6 @@
 # 🧠 CodDoc
 
-RepoWhisperer is an AI-powered tool that automatically generates professional README files for your GitHub repositories. Simply paste your repository URL, and watch as our advanced AI agents analyze your codebase to create comprehensive documentation.
+CodDoc is an AI-powered tool that automatically generates professional README files for your GitHub repositories. Simply paste your repository URL, and watch as our advanced AI agents analyze your codebase to create comprehensive documentation.
 
 ## ✨ Features
 
