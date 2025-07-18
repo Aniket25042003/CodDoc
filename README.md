@@ -86,6 +86,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📧 Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
+Aniket Patel - [@yourtwitter](https://www.linkedin.com/in/aniketpatel2003/)
 
-Project Link: [https://github.com/yourusername/repowhisperer](https://github.com/yourusername/repowhisperer) 
+Project Link: [https://github.com/Aniket25042004/CodDoc](https://github.com/Aniket25042003/CodDoc) 
