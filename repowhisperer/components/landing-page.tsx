@@ -198,7 +198,7 @@ export default function LandingPage({ onGenerateReadme }: LandingPageProps) {
               title: "Paste GitHub URL",
               description: "Simply paste your GitHub repository URL into our smart input field. Our system will validate and prepare for analysis.",
               icon: "🔗",
-              details: ["Public or private repos", "Automatic validation", "Instant preview"]
+              details: ["Public repositories", "Automatic validation", "Instant preview"]
             },
             {
               step: "02", 
