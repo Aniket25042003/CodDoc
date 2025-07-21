@@ -18,7 +18,7 @@ class BaseAgent:
         
         try:
             self.llm = ChatGoogleGenerativeAI(
-                model="gemini-2.0-flash-lite",
+                model="gemini-2.5-flash",
                 temperature=0.7,
                 google_api_key=api_key,
                 # Add these parameters to fix serialization issues

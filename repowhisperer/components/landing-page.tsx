@@ -203,7 +203,7 @@ export default function LandingPage({ onGenerateReadme }: LandingPageProps) {
             {
               step: "02", 
               title: "AI Agent Analysis",
-              description: "Watch as 5 specialized AI agents analyze your code structure, dependencies, documentation, and project purpose in real-time.",
+              description: "Watch as 3 specialized AI agents analyze your code structure, dependencies, documentation, and project purpose in real-time.",
               icon: "🧠",
               details: ["Code structure analysis", "Dependency extraction", "Purpose understanding"]
             },

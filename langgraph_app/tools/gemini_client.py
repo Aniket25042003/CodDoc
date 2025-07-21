@@ -13,7 +13,7 @@ class GeminiClient:
             raise ValueError("GEMINI_API_KEY environment variable is required")
         
         self.base_url = "https://generativelanguage.googleapis.com/v1beta"
-        self.model = "gemini-2.0-flash-lite"
+        self.model = "gemini-2.5-flash"
         self.max_retries = 2  # Reduced retries for faster failure
         self.base_delay = 1  # Reduced delay
     
